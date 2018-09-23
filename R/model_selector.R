@@ -58,10 +58,10 @@ selectModel <- function(train_x, train_y, valid_x, valid_y,
 #' @param task_type A string
 #' @param metric A string
 #' @return A model
-fitBestOnFullData <- function(train_x, train_y,
-                              best_fit_model,
-                              task_type,
-                              metric) {
+fitFinalModel <- function(train_x, train_y,
+                          best_fit_model,
+                          task_type,
+                          metric) {
 
     if (tolower(best_fit_model$best_model_name) == "xgboost") {
         final_model <- fitFinalXgboost(train_x, train_y,

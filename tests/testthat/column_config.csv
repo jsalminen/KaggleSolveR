@@ -1,0 +1,6 @@
+"name";"class";"new_class";"NA_count";"impute";"impute_value";"id_column";"target_column";"drop_column"
+"character_column";"factor";"factor";2;"";"";"";"";""
+"numeric_column";"factor";"factor";0;"";"";"";"";""
+"factor_column";"factor";"factor";1;"";"";"";"";""
+"boolean_column";"logical";"logical";0;"";"";"";"";""
+"all_na_column";"logical";"logical";5;"";"";"";"";""

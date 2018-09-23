@@ -33,20 +33,12 @@ cleanData <- function(train, test, config_file) {
 
 #' Create configuration file for a data set
 #' @export
-#' @param data A data frame containing the training data set
-#' @param path A string for the path where the configuration file will be saved
-#' @param overwrite A boolean specifying if an existing file is written over
-#' @return A string
-createConfigFile <- function(data, path = "", overwrite = FALSE) {
-    file_name <- paste(path, "column_config.csv", sep = "")
-
-    if (file.exists(file_name) & !overwrite) {
-        return("Configuration file already exists")
-    }
-
-    column_names <- names(data)
-    column_classes <- sapply(data, class)
-    NA_counts <- countNAs(data)
+#' @param df A data frame containing the training data set
+#' @return A data frame
+createConfigFile <- function(df) {
+    column_names <- names(df)
+    column_classes <- sapply(df, class)
+    NA_counts <- countNAs(df)
 
     df <- data.frame("name" = column_names,
                      "class" = column_classes,
@@ -56,11 +48,10 @@ createConfigFile <- function(data, path = "", overwrite = FALSE) {
                      "impute_value" = "",
                      "id_column" = "",
                      "target_column" = "",
-                     "drop_column" = "")
+                     "drop_column" = "",
+                     stringsAsFactors = FALSE)
 
-    write.csv2(df, file = file_name, row.names = FALSE)
-
-    return(paste("Created configuration file", file_name))
+    return(df)
 }
 
 #' Count the number of NAs in each column of a data frame
