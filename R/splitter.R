@@ -9,9 +9,9 @@
 #' @param df A data frame
 #' @param target_col A string
 #' @return A list of data frames
-splitData <- function(df, target_col) {
+splitData <- function(df, target_col, p = 0.5) {
     # Get target and validation set indexes
-    index <- getPartitionIndex(df[[target_col]])
+    index <- getPartitionIndex(df[[target_col]], p)
 
     # Split data table to train and validation sets
     train_x <- df[index, ]
@@ -35,8 +35,8 @@ splitData <- function(df, target_col) {
 #' Get partition index for training and validation sets
 #' @param target_col A vector
 #' @return A vector
-getPartitionIndex <- function(target_col) {
-    index <- caret::createDataPartition(target_col, list = FALSE)
+getPartitionIndex <- function(target_col, p) {
+    index <- caret::createDataPartition(target_col, p = p, list = FALSE)
     return(index)
 }
 
