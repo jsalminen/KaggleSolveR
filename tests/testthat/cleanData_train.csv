@@ -1,0 +1,4 @@
+"factor_to_numeric";"factor_to_character";"numeric_to_factor";"numeric_to_character";"character_to_factor";"character_to_numeric";"drop_column";"id_column";"target_column";"impute_char_1";"impute_char_2";"impute_factor_1";"impute_factor_2";"impute_numeric_1";"impute_numeric_2";"impute_date_1";"impute_date_2";"new_train_factor";"new_test_factor"
+"1";"level1";1;1;"text1";"1";4;1;0;"text1";"text2";"level1";"level2";1;1;0003-02-20;0003-02-20;"level_1";"level_1"
+"2";"level2";2;2;"text2";"2";NA;2;1;NA;NA;NA;NA;NA;NA;NA;NA;"level_2";"level_2"
+"3";"level1";3;3;"text1";"3";6;3;1;"text2";"text3";"level2";"level3";2;2;0004-02-20;0004-02-20;"level_3";"level_1"

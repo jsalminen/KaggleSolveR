@@ -1,0 +1,20 @@
+name;class;new_class;NA_count;impute;impute_value;id_column;target_column;drop_column
+factor_to_numeric;factor;numeric;0;;;;;
+factor_to_character;factor;character;0;;;;;
+numeric_to_factor;numeric;factor;0;;;;;
+numeric_to_character;numeric;character;0;;;;;
+character_to_factor;character;factor;0;;;;;
+character_to_numeric;character;numeric;0;;;;;
+drop_column;numeric;numeric;1;;;;;1
+id_column;numeric;numeric;0;;;1;;
+target_column;numeric;factor;0;;;;1;
+impute_char_1;character;character;1;value;imputed text;;;
+impute_char_2;character;character;1;;imputed text;;;
+impute_factor_1;factor;factor;1;value;new level;;;
+impute_factor_2;factor;factor;1;;new level;;;
+impute_numeric_1;numeric;numeric;1;value;7;;;
+impute_numeric_2;numeric;numeric;1;;7;;;
+impute_date_1;Date;Date;1;value;2017-01-01;;;
+impute_date_2;Date;Date;1;;2017-01-01;;;
+new_train_factor;factor;factor;0;;;;;
+new_test_factor;factor;factor;0;;;;;

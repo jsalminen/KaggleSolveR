@@ -13,19 +13,20 @@ cleanData <- function(train, test, config_file) {
         dplyr::filter(drop_column == 1) %>%
         dplyr::pull(name)
 
-    train <- train %>%
-        dplyr::select(-dplyr::one_of(drop_cols))
     train <- update_classes(train, config_file)
     train <- imputeNAs(train, config_file)
 
-    test <- test %>%
-        dplyr::select(-dplyr::one_of(drop_cols))
     test <- update_classes(test, config_file)
     test <- imputeNAs(test, config_file)
 
     data <- fix_factor_levels(train, test)
     train <- data$train
     test <- data$test
+
+    train <- train %>%
+        dplyr::select(-dplyr::one_of(drop_cols))
+    test <- test %>%
+        dplyr::select(-dplyr::one_of(drop_cols))
 
     return(list(train = train,
                 test = test))
@@ -79,32 +80,52 @@ update_classes <- function(data, config_file) {
         }
     }
 
+    for (n in config_file$name[config_file$new_class == "character"]) {
+        if (n %in% names(data)) {
+            data[, n] <- as.character(data[, n])
+        }
+    }
+
     return(data)
 }
 
 #' Synchronize factor levels between train and test sets
-#' @param train_x A data frame containing the training data
-#' @param test_x A data frame containing the test data
-#' @return A list containing train_x and test_x data frames
-fix_factor_levels <- function(train_x, test_x) {
+#' @param train A data frame containing the training data
+#' @param test A data frame containing the test data
+#' @return A list containing train and test data frames
+fix_factor_levels <- function(train, test) {
     # Get factor column names
-    factor_cols <- names(train_x)[sapply(train_x, is.factor)]
+    factor_cols <- names(train)[sapply(train, is.factor)]
 
     # Process only columns that are found also in test set
-    factor_cols <- factor_cols[factor_cols %in% names(test_x)]
+    factor_cols <- factor_cols[factor_cols %in% names(test)]
 
     for (col in factor_cols) {
-        if (!isTRUE(all.equal(levels(train_x[, col]), levels(test_x[, col])))) {
-            train_x[, col] <- addFactorLevel(train_x[, col], "new_test_level")
-            new_levels <- levels(train_x[, col])
+        if (!isTRUE(all.equal(levels(train[, col]), levels(test[, col])))) {
+            new_levels <- c(levels(train[, col]), "new_level")
+            train[, col] <- factor(train[, col], levels = new_levels)
 
-            test_x[, col] <- addFactorLevel(test_x[, col], "new_test_level")
-            test_x[!test_x[, col] %in% new_levels, col] <- "new_test_level"
-            levels(test_x[, col]) <- new_levels
+            levels(test[, col]) <- c(levels(test[, col]), "new_level")
+            test[!(test[, col] %in% new_levels), col] <- "new_level"
+            test[, col] <- factor(test[, col], levels = new_levels)
         }
     }
 
-    return(list(train = train_x, test = test_x))
+    return(list(train = train, test = test))
+}
+
+addMissingFactorLevels <- function(x, new_levels) {
+    if(!(class(x) == "factor")) return(x)
+
+    current_levels <- levels(x)
+
+    for (level in new_levels) {
+        if (!(level %in% current_levels)) {
+            addFactorLevel(x, level)
+        }
+    }
+
+    return(x)
 }
 
 ################################################################################
@@ -154,6 +175,10 @@ imputeNA <- function(x, impute = NA, impute_value = NULL) {
 #' @param impute_value A value for replacing NAs
 #' @return A vector
 imputeValue <- function(x, impute_value) {
+
+    if (class(x) == "numeric") {
+        impute_value <- as.numeric(impute_value)
+    }
 
     if (class(x) == "factor") {
         x <- addFactorLevel(x, impute_value)
