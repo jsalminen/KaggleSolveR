@@ -1,0 +1,13 @@
+name;class;new_class;NA_count;impute;impute_value;id_column;target_column;drop_column
+PassengerId;integer;integer;0;;;1;;
+Survived;integer;factor;0;;;;1;
+Pclass;integer;factor;0;;;;;1
+Name;factor;factor;0;;;;;1
+Sex;factor;factor;0;;;;;
+Age;numeric;numeric;177;;;;;
+SibSp;integer;integer;0;;;;;
+Parch;integer;integer;0;;;;;
+Ticket;factor;factor;0;;;;;1
+Fare;numeric;numeric;0;;;;;
+Cabin;factor;factor;0;;;;;1
+Embarked;factor;factor;0;;;;;

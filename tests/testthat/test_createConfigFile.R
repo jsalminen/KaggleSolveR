@@ -19,7 +19,7 @@ col_classes <- c("character",
 expected_na_counts <- c(2, 0, 1, 0, 5)
 
 test_that("configuration file is created correctly", {
-    df <- read.csv2("createConfigFile_testdata.csv",
+    df <- read.csv2("test_data/createConfigFile_testdata.csv",
                     colClasses = col_classes)
 
     config_file <- createConfigFile(df)

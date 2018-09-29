@@ -2,7 +2,7 @@ context("Split data")
 
 
 
-raw_data <- read.csv2("splitData_raw.csv")
+raw_data <- read.csv2("test_data/splitData_raw.csv")
 
 test_that("factor target is split correctly", {
     split_data <- splitData(raw_data, "factor_target")

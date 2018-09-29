@@ -13,6 +13,11 @@ cleanData <- function(train, test, config_file) {
         dplyr::filter(drop_column == 1) %>%
         dplyr::pull(name)
 
+    train <- train %>%
+        dplyr::select(-dplyr::one_of(drop_cols))
+    test <- test %>%
+        dplyr::select(-dplyr::one_of(drop_cols))
+
     train <- update_classes(train, config_file)
     train <- imputeNAs(train, config_file)
 
@@ -22,11 +27,6 @@ cleanData <- function(train, test, config_file) {
     data <- fix_factor_levels(train, test)
     train <- data$train
     test <- data$test
-
-    train <- train %>%
-        dplyr::select(-dplyr::one_of(drop_cols))
-    test <- test %>%
-        dplyr::select(-dplyr::one_of(drop_cols))
 
     return(list(train = train,
                 test = test))
@@ -68,19 +68,22 @@ countNAs <- function(df) {
 #' @param config_file A data frame containing the configuration data
 #' @return A data frame
 update_classes <- function(data, config_file) {
-    for (n in config_file$name[config_file$new_class == "factor"]) {
-        if (n %in% names(data) & class(data[, n]) != "factor") {
+    for (n in config_file$name[config_file$new_class == "factor" &
+                               is.na(config_file$drop_column)]) {
+        if (n %in% names(data)) {
             data[, n] <- as.factor(data[, n])
         }
     }
 
-    for (n in config_file$name[config_file$new_class == "numeric"]) {
+    for (n in config_file$name[config_file$new_class == "numeric" &
+                               is.na(config_file$drop_column)]) {
         if (n %in% names(data)) {
             data[, n] <- as.numeric(data[, n])
         }
     }
 
-    for (n in config_file$name[config_file$new_class == "character"]) {
+    for (n in config_file$name[config_file$new_class == "character" &
+                               is.na(config_file$drop_column)]) {
         if (n %in% names(data)) {
             data[, n] <- as.character(data[, n])
         }
@@ -97,7 +100,7 @@ fix_factor_levels <- function(train, test) {
     # Get factor column names
     factor_cols <- names(train)[sapply(train, is.factor)]
 
-    # Process only columns that are found also in test set
+    # Process only columns that are found also in test set...
     factor_cols <- factor_cols[factor_cols %in% names(test)]
 
     for (col in factor_cols) {
@@ -139,7 +142,7 @@ imputeNAs <- function(df, config_file) {
 
     # Get columns with more than 0 NAs
     impute_info <- config_file %>%
-        dplyr::filter(NA_count > 0)
+        dplyr::filter(NA_count > 0, is.na(drop_column))
 
     for (i in 1:nrow(impute_info)) {
         column <- impute_info[i, "name"]

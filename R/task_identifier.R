@@ -1,5 +1,6 @@
 
 #' Identify the type of the learning task
+#' @export
 #' @param target_col A vector
 #' @return A string
 identifyTask <- function(target_col) {

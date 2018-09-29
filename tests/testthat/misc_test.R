@@ -24,7 +24,7 @@ createConfigFile_for_testing <- function() {
                        colClasses = col_classes)
 
     config_file <- createConfigFile(train)
-    write.csv2(config_file, "config_file_template.csv", row.names = FALSE)
+    write.csv2(config_file, "test_data/config_file_template.csv", row.names = FALSE)
 }
 
 createTestDataForSplitting <- function() {
@@ -46,6 +46,30 @@ createTestDataForSplitting <- function() {
     numeric_target <- feature_1 * (feature_2 + 0.2)
 
     df <- data.frame(id, feature_1, feature_2, factor_target, numeric_target)
-    write.csv2(df, "splitData_raw.csv", row.names = FALSE)
+    write.csv2(df, "test_data/splitData_raw.csv", row.names = FALSE)
+}
+
+createTitanicConfigFile <- function(replace_existing = FALSE) {
+    filename <- "test_data/titanic_config_file.csv"
+
+    train <- read.csv("test_data/titanic_train.csv")
+
+    config_file <- createConfigFile(train)
+
+    if (replace_existing | !file.exists(filename)) {
+        write.csv2(config_file, filename, row.names = FALSE)
+    }
+}
+
+createHousingConfigFile <- function(replace_existing = FALSE) {
+    filename <- "test_data/housing_config_file.csv"
+
+    train <- read.csv("test_data/housing_train.csv")
+
+    config_file <- createConfigFile(train)
+
+    if (replace_existing | !file.exists(filename)) {
+        write.csv2(config_file, filename, row.names = FALSE)
+    }
 }
 

@@ -40,9 +40,9 @@ expected_col_names <- c("factor_to_numeric",
                         "new_train_factor",
                         "new_test_factor")
 
-train <- read.csv2("cleanData_train.csv", colClasses = col_classes)
-test <- read.csv2("cleanData_test.csv", colClasses = col_classes)
-config_file <- read.csv2("config_file.csv", stringsAsFactors = FALSE)
+train <- read.csv2("test_data/cleanData_train.csv", colClasses = col_classes)
+test <- read.csv2("test_data/cleanData_test.csv", colClasses = col_classes)
+config_file <- read.csv2("test_data/config_file.csv", stringsAsFactors = FALSE)
 
 cleaned_data <- cleanData(train, test, config_file)
 train <- cleaned_data$train
