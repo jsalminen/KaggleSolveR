@@ -1,6 +1,7 @@
 
 
 #' Preprocess all numeric columns of a data frame
+#' @export
 #' @param df A data frame
 #' @return A function
 getPreProcNumeric <- function(df) {

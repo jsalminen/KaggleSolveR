@@ -91,5 +91,5 @@ test_that("model selector works on numeric target", {
                                   best_fit_model = NULL)
 
     expect_equal(names(best_fit_model), best_fit_model_names)
-    expect_gt(best_fit_model$best_score, 0.8)
+    expect_lt(best_fit_model$best_score, 35000)
 })

@@ -73,3 +73,24 @@ createHousingConfigFile <- function(replace_existing = FALSE) {
     }
 }
 
+createPreprocessTestData <- function() {
+    filename <- "test_data/preprocess_testdata.csv"
+
+    row_count <- 100
+
+    numeric_1 <- rnorm(row_count, mean = 1000, sd = 50)
+    character_1 <- rep("text", row_count)
+    factor_1 <- rep(c("level1", "level2"), row_count / 2)
+    numeric_2 <- rnorm(row_count, mean = -1000, sd = 50)
+    character_2 <- rep("text2", row_count)
+    factor_2 <- rep(c("level3", "level4"), row_count / 2)
+
+    df <- data.frame(numeric_1,
+                     character_1,
+                     factor_1,
+                     factor_2,
+                     numeric_2,
+                     character_2)
+
+    write.csv2(df, filename, row.names = FALSE)
+}
