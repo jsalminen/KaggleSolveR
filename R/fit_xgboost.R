@@ -134,7 +134,7 @@ tuneModel <- function(train_x,
             trControl=train_control,
             tuneGrid=param_grid,
             method=method,
-            objective=task_params$objective,
+            #objective=task_params$objective,
             num_class=task_params$num_class
         )
     }
@@ -147,7 +147,7 @@ tuneModel <- function(train_x,
             trControl=train_control,
             tuneGrid=param_grid,
             method=method,
-            objective=task_params$objective
+            #objective=task_params$objective
         )
     }
 
@@ -178,7 +178,7 @@ runXgboost <- function(train_x_sparse,
                              label = as.numeric(as.character(train_y)),
                              params = params,
                              nrounds = nrounds,
-                             objective = task_params$objective,
+                            # objective = task_params$objective,
                              num_class = task_params$num_class,
                              metric = metric,
                              method = method,

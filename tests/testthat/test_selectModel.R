@@ -88,7 +88,8 @@ test_that("model selector works on numeric target", {
     best_fit_model <- selectModel(train_x, train_y,
                                   valid_x, valid_y,
                                   task_type, "rmse",
-                                  best_fit_model = NULL)
+                                  best_fit_model = NULL,
+                                  verbose = FALSE)
 
     expect_equal(names(best_fit_model), best_fit_model_names)
     expect_lt(best_fit_model$best_score, 35000)
