@@ -12,9 +12,11 @@ getRandomForest <- function(train_x, train_y,
 
     train_control <- getRFTrainControl(cv_rounds)
 
+    eval_metric_caret <- getEvalMetric(metric, "caret")
+
     rdm_model <- tuneRandomForest(train_x,
                                   train_y,
-                                  metric,
+                                  eval_metric_caret,
                                   train_control)
 
     return(rdm_model)

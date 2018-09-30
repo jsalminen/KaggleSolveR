@@ -8,7 +8,7 @@
 getLogisticRegression <- function(train_x, train_y, task_type='classification',
                                   metric=NULL) {
 
-    logreg_model <- nnet::multinom(train_y ~., data = train_x)
+    logreg_model <- nnet::multinom(train_y ~., data = train_x, trace = FALSE)
 
     return(logreg_model)
 }

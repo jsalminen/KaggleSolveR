@@ -44,10 +44,11 @@ test_that("model selector works on factor target", {
     best_fit_model <- selectModel(train_x, train_y,
                                   valid_x, valid_y,
                                   task_type, "accuracy",
-                                  minimize_score = FALSE)
+                                  minimize_score = FALSE,
+                                  verbose = FALSE)
 
     expect_equal(names(best_fit_model), best_fit_model_names)
-    expect_gt(best_fit_model$best_score, 0.8)
+    expect_gt(best_fit_model$best_score, 0.79)
 
 })
 

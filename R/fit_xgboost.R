@@ -130,7 +130,7 @@ tuneModel <- function(train_x,
         xgb_model <- caret::train(
             x=train_x,
             y=train_y,
-            metric=metric,
+            #metric=metric,
             trControl=train_control,
             tuneGrid=param_grid,
             method=method,
@@ -143,7 +143,7 @@ tuneModel <- function(train_x,
         xgb_model <- caret::train(
             x=train_x,
             y=train_y,
-            metric=metric,
+           # metric=metric,
             trControl=train_control,
             tuneGrid=param_grid,
             method=method,
@@ -178,7 +178,7 @@ runXgboost <- function(train_x_sparse,
                              label = as.numeric(as.character(train_y)),
                              params = params,
                              nrounds = nrounds,
-                            # objective = task_params$objective,
+                             objective = task_params$objective,
                              num_class = task_params$num_class,
                              metric = metric,
                              method = method,
@@ -306,33 +306,6 @@ getTrainControl <- function(cv_rounds, task_type) {
 }
 
 
-
-
-
-# TODO: get metric to use
-#' Translate metric names for Xgboost
-#' @param metric A string
-#' @param use_case A string
-#' @return A string
-getEvalMetric <- function(metric, use_case = "default") {
-
-    use_case <- tolower(use_case)
-
-    if(use_case == "default") {
-        metric <- switch(metric,
-                         accuracy = "error",
-                         logLoss = "logLoss",
-                         metric)
-    } else if(use_case == "caret") {
-        metric <- switch(metric,
-                         accuracy = "Accuracy",
-                         logLoss = "logLoss",
-                         rmse = "RMSE",
-                         metric)
-    }
-
-    return(metric)
-}
 
 #' Fix label names for classification task
 #' @param train_y A vector

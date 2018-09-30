@@ -15,9 +15,11 @@ getLasso <- function(train_x, train_y, task_type, metric, cv_rounds = 5) {
 
     train_control <- getLassoTrainControl(task_type, cv_rounds)
 
+    eval_metric_caret <- getEvalMetric(metric, "caret")
+
     lasso_model <- tuneLasso(train_x_lasso, train_y,
                              task_type, task_params, train_control,
-                             metric)
+                             eval_metric_caret)
 
     return(lasso_model)
 }

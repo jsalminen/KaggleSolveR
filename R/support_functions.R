@@ -80,3 +80,28 @@ getTaskParams <- function(task_type, train_y) {
     return(task_params)
 }
 
+
+# TODO: get metric to use
+#' Translate metric names for caret, xgboost, randomForest
+#' @param metric A string
+#' @param use_case A string
+#' @return A string
+getEvalMetric <- function(metric, use_case = "default") {
+
+    use_case <- tolower(use_case)
+
+    if(use_case == "default") {
+        metric <- switch(metric,
+                         accuracy = "error",
+                         logLoss = "logLoss",
+                         metric)
+    } else if(use_case == "caret") {
+        metric <- switch(metric,
+                         accuracy = "Accuracy",
+                         logLoss = "logLoss",
+                         rmse = "RMSE",
+                         metric)
+    }
+
+    return(metric)
+}

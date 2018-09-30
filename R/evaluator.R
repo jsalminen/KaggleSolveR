@@ -10,7 +10,12 @@ getEvaluation <- function(ml_model, model_name, valid_x, valid_y, metric) {
 
     valid_x <- fixDataRepresentation(valid_x, model_name)
 
-    pred <-  predict(ml_model, newdata = valid_x)
+    if (tolower(model_name) == "linearregression") {
+        pred <-  suppressWarnings(predict(ml_model, newdata = valid_x))
+    }else {
+        pred <-  predict(ml_model, newdata = valid_x)
+    }
+
 
     result <- NULL
 
