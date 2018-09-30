@@ -44,5 +44,34 @@ test_that("numeric target is split correctly", {
 
 })
 
+test_that("full data set is split correctly, factor target", {
+    feature_names <- c("id", "feature_1", "feature_2", "numeric_target")
+
+    split_data <- splitTargetAndFeatures(raw_data, "factor_target")
+    features <- split_data$features
+    target <- split_data$target
+
+    expect_equal(nrow(features), 100)
+    expect_equal(names(features), feature_names)
+
+    expect_equal(length(target), 100)
+    expect_eqyal(class(target), "factor")
+
+})
+
+test_that("full data set is split correctly, numeric target", {
+    feature_names <- c("id", "feature_1", "feature_2", "factor_target")
+
+    split_data <- splitTargetAndFeatures(raw_data, "numeric_target")
+    features <- split_data$features
+    target <- split_data$target
+
+    expect_equal(nrow(features), 100)
+    expect_equal(names(features), feature_names)
+
+    expect_equal(length(target), 100)
+    expect_eqyal(class(target), "numeric")
+
+})
 
 

@@ -37,7 +37,7 @@ splitTargetAndFeatures <- function(df, target_col) {
     y <- df[[target_col]]
     df[, target_col] <- NULL
 
-    return(list(x = df, y = y))
+    return(list(features = df, target = y))
 }
 
 
