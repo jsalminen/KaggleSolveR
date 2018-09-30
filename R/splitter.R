@@ -1,8 +1,3 @@
-# Splitter
-# - Input: train data, target col, task type
-# - Output: train_X, valid_X, train_Y, valid_Y
-# - Classification: stratified splitting
-# - Regression: K-fold split
 
 #' Split data to training and validation sets
 #' @export
@@ -31,6 +26,20 @@ splitData <- function(df, target_col, p = 0.5) {
                 valid_x = valid_x,
                 valid_y = valid_y))
 }
+
+
+#' Split full training data to features and target
+#' @export
+#' @param df A data frame
+#' @param target_col A string
+#' @return A list containing features and target
+splitTargetAndFeatures <- function(df, target_col) {
+    y <- df[[target_col]]
+    df[, target_col] <- NULL
+
+    return(list(x = df, y = y))
+}
+
 
 #' Get partition index for training and validation sets
 #' @param target_col A vector
