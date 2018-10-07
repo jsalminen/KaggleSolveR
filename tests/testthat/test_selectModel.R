@@ -70,7 +70,7 @@ test_that("model selector works on factor target", {
     # Select model
     best_fit_model <- selectModel(train_x, train_y,
                                   valid_x, valid_y,
-                                  "classification", METRIC,
+                                  task_type, METRIC,
                                   minimize_score = FALSE,
                                   verbose = FALSE)
 
