@@ -68,11 +68,11 @@ test_that("model selector works on factor target", {
     valid_x <- predict(preProcNumeric, valid_x)
 
     # Select model
-    best_fit_model <- selectModel(train_x, train_y,
+    best_fit_model <- suppressWarnings(selectModel(train_x, train_y,
                                   valid_x, valid_y,
                                   task_type, METRIC,
                                   minimize_score = FALSE,
-                                  verbose = FALSE)
+                                  verbose = FALSE))
 
     expect_equal(names(best_fit_model), best_fit_model_names)
     expect_gt(best_fit_model$best_score, 0.79)
@@ -143,11 +143,11 @@ test_that("model selector works on numeric target", {
     valid_x <- predict(preProcNumeric, valid_x)
 
     # Select model
-    best_fit_model <- selectModel(train_x, train_y,
+    best_fit_model <- suppressWarnings(selectModel(train_x, train_y,
                                   valid_x, valid_y,
                                   task_type, METRIC,
                                   best_fit_model = NULL,
-                                  verbose = FALSE)
+                                  verbose = FALSE))
 
     expect_equal(names(best_fit_model), best_fit_model_names)
     expect_lt(best_fit_model$best_score, 35000)
