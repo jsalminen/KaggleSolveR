@@ -103,7 +103,7 @@ getModelList <- function(task_type) {
 #' @param model_name A string
 #' @return A model object
 getModel <- function(train_x, train_y,
-                     tast_type, metric,
+                     task_type, metric,
                      model_name) {
 
     model_name <- tolower(model_name)

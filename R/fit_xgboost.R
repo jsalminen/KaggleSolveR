@@ -130,11 +130,11 @@ tuneModel <- function(train_x,
         xgb_model <- caret::train(
             x=train_x,
             y=train_y,
-            #metric=metric,
+            metric=metric,
             trControl=train_control,
             tuneGrid=param_grid,
             method=method,
-            #objective=task_params$objective,
+            objective=task_params$objective,
             num_class=task_params$num_class
         )
     }
@@ -143,11 +143,11 @@ tuneModel <- function(train_x,
         xgb_model <- caret::train(
             x=train_x,
             y=train_y,
-           # metric=metric,
+            metric=metric,
             trControl=train_control,
             tuneGrid=param_grid,
             method=method,
-            #objective=task_params$objective
+            objective=task_params$objective
         )
     }
 

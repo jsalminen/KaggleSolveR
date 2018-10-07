@@ -55,7 +55,7 @@ test_that("full data set is split correctly, factor target", {
     expect_equal(names(features), feature_names)
 
     expect_equal(length(target), 100)
-    expect_eqyal(class(target), "factor")
+    expect_equal(class(target), "factor")
 
 })
 
@@ -70,7 +70,7 @@ test_that("full data set is split correctly, numeric target", {
     expect_equal(names(features), feature_names)
 
     expect_equal(length(target), 100)
-    expect_eqyal(class(target), "numeric")
+    expect_equal(class(target), "numeric")
 
 })
 
